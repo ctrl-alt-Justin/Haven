@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #F4EFE3;
+  --foreground: #2E2620;
+  --card: #FAF7F0;
+  --card-foreground: #2E2620;
+  --primary: #4A6146;
+  --primary-foreground: #FAF7F0;
+  --secondary: #DCE5D2;
+  --secondary-foreground: #2E2620;
+  --muted: #EBD9D5;
+  --muted-foreground: #806F5B;
+  --accent: #B8C6B0;
+  --accent-foreground: #2E2620;
+  --border: #E0D7C4;
+}
+
+body {
+  color: var(--foreground);
+  background-color: var(--background);
+  min-height: 100vh;
+  font-family: var(--font-plus-jakarta), system-ui, -apple-system, sans-serif;
+  background-image: 
+    radial-gradient(#d3c9b7 0.75px, transparent 0.75px),
+    radial-gradient(#e4dcce 0.75px, #F4EFE3 0.75px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom accessible focus indicator */
+:focus-visible {
+  outline: 2px solid #8A9F7B;
+  outline-offset: 2px;
+}
+
+/* Cozy paper scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F4EFE3;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D1C6B4;
+  border-radius: 9999px;
+  border: 2px solid #F4EFE3;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B8A892;
+}
+
+/* Gentle transitions */
+a, button {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Elegant selection highlight */
+::selection {
+  background-color: #DCE5D2;
+  color: #2E2620;
+}
