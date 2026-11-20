@@ -1,117 +1,183 @@
 'use client'
 
-import { useState } from 'react'
-import { Flower2, Sun, CloudRain, Sparkles, Sprout, Wind } from 'lucide-react'
+import React, { useState } from 'react'
+import {
+  Flower2,
+  Sun,
+  Wind,
+  Sparkles,
+  Sprout,
+  Heart,
+  Droplets,
+  Bird,
+} from 'lucide-react'
+
+const BOTANICAL_DISCOVERIES = [
+  {
+    id: 1,
+    name: 'Sanctuary Lavender',
+    meaning: 'Calm & Restful Sleep',
+    lore: 'Planted near the stone path to brush against sleeves and release its soothing scent as you walk past.',
+    color: 'bg-purple-100/90 text-purple-900 border-purple-300',
+    flowerColor: '#9366B4',
+  },
+  {
+    id: 2,
+    name: 'Meadow Chamomile',
+    meaning: 'Warm Herbal Tea & Patience',
+    lore: 'Tiny white and golden sunbursts. Perfect for drying in small bundles on the kitchen sill.',
+    color: 'bg-amber-100/90 text-amber-950 border-amber-300',
+    flowerColor: '#F5C242',
+  },
+  {
+    id: 3,
+    name: 'Cottage Forget-Me-Not',
+    meaning: 'True Affection & Memories',
+    lore: 'Thrives in the cool shade beside the library window sill.',
+    color: 'bg-sky-100/90 text-sky-950 border-sky-300',
+    flowerColor: '#6BB5E5',
+  },
+  {
+    id: 4,
+    name: 'Woodland Moss Rose',
+    meaning: 'Gentle Devotion',
+    lore: 'Soft, velvety petals that hold morning dew drops long after the sunrise.',
+    color: 'bg-rose-100/90 text-rose-950 border-rose-300',
+    flowerColor: '#DE7083',
+  },
+  {
+    id: 5,
+    name: 'Wild Apple Blossom',
+    meaning: 'Hope & Sweet Autumns',
+    lore: 'Drifts down onto our scrapbook table like warm fragrant snow.',
+    color: 'bg-emerald-100/90 text-emerald-950 border-emerald-300',
+    flowerColor: '#72A86E',
+  },
+  {
+    id: 6,
+    name: 'Golden Honeysuckle',
+    meaning: 'Sweet Bonds & Twilight Whispers',
+    lore: 'Climbs the wooden garden gate, welcoming hummingbirds and evening bees.',
+    color: 'bg-yellow-100/90 text-yellow-950 border-yellow-300',
+    flowerColor: '#E8B638',
+  },
+]
 
 export default function GardenPage() {
-  const [bloomedFlowers, setBloomedFlowers] = useState<number[]>([1, 3])
+  const [tendedIds, setTendedIds] = useState<number[]>([1, 3])
+  const [activeFlower, setActiveFlower] = useState<number | null>(null)
 
-  const toggleBloom = (id: number) => {
-    setBloomedFlowers((prev) =>
+  const toggleTend = (id: number) => {
+    setActiveFlower(id)
+    setTendedIds((prev) =>
       prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
     )
   }
 
-  const FLOWERS = [
-    { id: 1, name: 'Sanctuary Lavender', scent: 'Calm & Rest', color: 'bg-purple-100 text-purple-800 border-purple-200' },
-    { id: 2, name: 'Meadow Chamomile', scent: 'Warm Apple Tea', color: 'bg-amber-100 text-amber-800 border-amber-200' },
-    { id: 3, name: 'Cottage Forget-Me-Not', scent: 'Gentle Affection', color: 'bg-sky-100 text-sky-800 border-sky-200' },
-    { id: 4, name: 'Woodland Moss Rose', scent: 'Petals & Earth', color: 'bg-rose-100 text-rose-800 border-rose-200' },
-    { id: 5, name: 'Wild Ivy & Mint', scent: 'Fresh Morning Dew', color: 'bg-emerald-100 text-emerald-800 border-emerald-200' },
-    { id: 6, name: 'Sweet Honeysuckle', scent: 'Golden Sunset', color: 'bg-yellow-100 text-yellow-800 border-yellow-200' },
-  ]
-
   return (
     <div className="space-y-8">
-      {/* Header */}
-      <div className="border-b border-cottage-border/70 pb-6">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cottage-sage/50 text-cottage-moss-deep text-xs font-medium mb-2 border border-cottage-moss/30">
-          <Flower2 className="w-3.5 h-3.5" />
-          <span>Interactive Sanctuary Garden</span>
+      {/* Atmosphere Header: Storybook Garden Gate */}
+      <div className="relative rounded-cottage-lg overflow-hidden border-2 border-[#C9D9C3] bg-gradient-to-r from-[#4A6445] via-[#5F7C59] to-[#40563C] text-[#F9F7EE] p-6 sm:p-10 shadow-lifted">
+        <div className="relative z-10 max-w-xl space-y-3">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAF2E8]/20 border border-[#EAF2E8]/30 text-xs font-medium text-[#D8EADB]">
+            <Flower2 className="w-3.5 h-3.5" />
+            <span>The Cottage Garden</span>
+          </div>
+          <h1 className="font-serif text-3xl sm:text-5xl font-medium tracking-tight">
+            A peaceful garden that blooms without hurry.
+          </h1>
+          <p className="text-xs sm:text-sm text-[#D7E4D4] leading-relaxed">
+            There are no daily streaks here, no wilt timers, and no penalties.
+            The flowers wait patiently for whenever you wish to visit and listen to the breeze.
+          </p>
         </div>
-        <h1 className="font-serif text-3xl sm:text-4xl font-medium text-cottage-bark">
-          The Garden
-        </h1>
-        <p className="text-sm text-cottage-brown mt-1">
-          A place of gentle discoveries, seasonal flowers, and quiet sunlight.
-        </p>
+
+        {/* Ambient floating butterflies */}
+        <div className="absolute top-6 right-10 pointer-events-none opacity-80 animate-bounce hidden sm:block">
+          <span className="text-2xl">🦋</span>
+        </div>
       </div>
 
-      {/* Gentle philosophy banner */}
-      <div className="rounded-cottage border border-cottage-moss/40 bg-cottage-sage/30 p-5 flex items-start gap-3.5 text-xs sm:text-sm text-cottage-brown">
+      {/* Gentle Philosophy Banner */}
+      <div className="storybook-card p-5 flex items-start gap-3.5 text-xs sm:text-sm text-cottage-brown">
         <Sprout className="w-5 h-5 text-cottage-moss-deep shrink-0 mt-0.5" />
-        <div>
-          <p className="font-semibold text-cottage-bark">Zero Pressure, No Streaks</p>
+        <div className="space-y-0.5">
+          <p className="font-semibold text-cottage-bark">Zero Pressure Philosophy</p>
           <p className="leading-relaxed">
-            The flowers in this garden bloom purely for joy. There are no daily login timers, no streaks that reset, and no punishment for being away. Tend to them whenever you feel like pausing.
+            In our world, tending a flower is simply an act of quiet contemplation. No numbers, no levels, and no notifications are ever sent.
           </p>
         </div>
       </div>
 
-      {/* Garden Weather & Season Card */}
-      <div className="rounded-cottage border border-cottage-border bg-cottage-cream-light p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-cottage-sage/40 border border-cottage-moss/30 flex items-center justify-center text-cottage-moss-deep">
-            <Sun className="w-6 h-6" />
-          </div>
-          <div>
-            <h3 className="font-serif text-lg font-medium text-cottage-bark">
-              Afternoon Sunbeam & Soft Breeze
-            </h3>
-            <p className="text-xs text-cottage-brown">
-              Mild and quiet in our digital sanctuary. Perfect weather for reading outdoors.
-            </p>
-          </div>
-        </div>
-        <div className="flex items-center gap-2 text-xs text-cottage-brown bg-cottage-cream px-3 py-1.5 rounded-full border border-cottage-border">
-          <Wind className="w-3.5 h-3.5 text-cottage-brown-light" />
-          <span>Gentle Autumn Air</span>
-        </div>
-      </div>
-
-      {/* Interactive Flowerbed */}
+      {/* Interactive Flowerbed Grid */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="font-serif text-2xl font-medium text-cottage-bark">
-            The Sanctuary Flowerbed
-          </h2>
-          <span className="text-xs text-cottage-brown">Click any plant to tend it ♡</span>
+          <div>
+            <h2 className="font-serif text-2xl font-medium text-cottage-bark">
+              The Sanctuary Flowerbed
+            </h2>
+            <p className="text-xs text-cottage-brown">
+              Click any plant to tend it and reveal its quiet lore ♡
+            </p>
+          </div>
+          <div className="flex items-center gap-1.5 text-xs text-cottage-moss-deep bg-cottage-sage/40 px-3 py-1.5 rounded-full border border-cottage-moss/40">
+            <Droplets className="w-3.5 h-3.5" />
+            <span>{tendedIds.length} of {BOTANICAL_DISCOVERIES.length} Blooming</span>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {FLOWERS.map((flower) => {
-            const isBloomed = bloomedFlowers.includes(flower.id)
+          {BOTANICAL_DISCOVERIES.map((flower) => {
+            const isTended = tendedIds.includes(flower.id)
+
             return (
-              <button
+              <div
                 key={flower.id}
-                onClick={() => toggleBloom(flower.id)}
-                className={`text-left rounded-cottage border p-5 transition-all ${
-                  isBloomed
-                    ? `${flower.color} shadow-card scale-[1.01]`
-                    : 'bg-cottage-cream-light border-cottage-border hover:border-cottage-moss/60'
+                onClick={() => toggleTend(flower.id)}
+                className={`cursor-pointer storybook-card p-6 flex flex-col justify-between space-y-4 transition-all hover:-translate-y-1 select-none ${
+                  isTended ? 'ring-2 ring-cottage-moss-deep/70 shadow-lifted' : ''
                 }`}
               >
-                <div className="flex items-center justify-between mb-3">
-                  <span className="p-2 rounded-xl bg-white/70 shadow-xs">
-                    <Flower2 className={`w-5 h-5 ${isBloomed ? 'text-current' : 'text-cottage-brown'}`} />
-                  </span>
-                  <span className="text-[10px] uppercase font-semibold tracking-wider px-2 py-0.5 rounded-full bg-white/60">
-                    {isBloomed ? 'In Full Bloom' : 'Dozing in the Earth'}
-                  </span>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div
+                      className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-xs transition-transform group-hover:scale-110"
+                      style={{ backgroundColor: `${flower.flowerColor}25` }}
+                    >
+                      <Flower2
+                        className={`w-6 h-6 ${isTended ? 'animate-sway' : ''}`}
+                        style={{ color: flower.flowerColor }}
+                      />
+                    </div>
+                    <span
+                      className={`text-[10px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
+                        isTended
+                          ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                          : 'bg-cottage-cream text-cottage-brown border-cottage-border'
+                      }`}
+                    >
+                      {isTended ? 'In Full Bloom 🌸' : 'Quiet Bud'}
+                    </span>
+                  </div>
+
+                  <div>
+                    <h3 className="font-serif text-xl font-medium text-cottage-bark">
+                      {flower.name}
+                    </h3>
+                    <p className="text-xs font-serif italic text-cottage-rose-dark mt-0.5">
+                      Meaning: {flower.meaning}
+                    </p>
+                    <p className="text-xs text-cottage-brown leading-relaxed mt-2 storybook-parchment p-3 rounded-xl">
+                      {flower.lore}
+                    </p>
+                  </div>
                 </div>
 
-                <h3 className="font-serif text-lg font-medium text-cottage-bark">
-                  {flower.name}
-                </h3>
-                <p className="text-xs text-cottage-brown mt-1">
-                  Gentle scent: <span className="italic">{flower.scent}</span>
-                </p>
-
-                <div className="mt-4 pt-3 border-t border-black/5 flex items-center justify-between text-[11px] text-cottage-brown">
-                  <span>{isBloomed ? 'Tended with warmth' : 'Tap to wake gently'}</span>
-                  <Sparkles className="w-3.5 h-3.5 opacity-60" />
+                <div className="pt-3 border-t border-cottage-border/40 flex items-center justify-between text-xs text-cottage-brown">
+                  <span>{isTended ? 'Tended with warmth' : 'Tap to warm gently'}</span>
+                  <Sparkles className="w-3.5 h-3.5 text-cottage-moss-deep" />
                 </div>
-              </button>
+              </div>
             )
           })}
         </div>

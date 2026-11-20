@@ -248,29 +248,37 @@ export default function LibraryPage() {
 
   return (
     <div className="space-y-8">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-cottage-border/70 pb-6">
-        <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cottage-sage/50 text-cottage-moss-deep text-xs font-medium mb-2 border border-cottage-moss/30">
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>Phase 2 Reading Platform Active</span>
+      {/* Atmosphere Header: Storybook Reading Nook Banner */}
+      <div className="relative rounded-cottage-lg overflow-hidden border-2 border-[#D9CEBA] bg-gradient-to-r from-[#594436] via-[#755944] to-[#4F3B2F] text-[#FDF8EC] p-6 sm:p-10 shadow-lifted">
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-3 max-w-xl">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFEFA6]/20 border border-[#FFEFA6]/30 text-xs font-medium text-[#FFEFA6]">
+              <BookOpen className="w-3.5 h-3.5" />
+              <span>The Cottage Library & Reading Nook</span>
+            </div>
+            <h1 className="font-serif text-3xl sm:text-5xl font-medium tracking-tight">
+              Tall bookshelves and quiet afternoon sun.
+            </h1>
+            <p className="text-xs sm:text-sm text-[#EAE0D3] leading-relaxed">
+              Our shared reading nook for legally permitted books, light novels, and comics.
+              Equipped with our reflowable EPUB reader and continuous-scroll comic reader.
+            </p>
           </div>
-          <h1 className="font-serif text-3xl sm:text-4xl font-medium text-cottage-bark">
-            The Library
-          </h1>
-          <p className="text-sm text-cottage-brown mt-1">
-            Our shared sanctuary for legally permitted books, light novels, and comics.
-          </p>
+
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setShowUploadModal(true)}
+              className="flex items-center gap-2 storybook-wood text-white px-5 py-2.5 rounded-full text-xs font-medium shadow-soft hover:scale-105 transition-all self-start md:self-auto"
+            >
+              <PlusCircle className="w-4 h-4 text-amber-200" />
+              <span>Add a Title</span>
+            </button>
+          </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => setShowUploadModal(true)}
-            className="flex items-center gap-2 bg-cottage-moss-deep hover:bg-cottage-bark text-cottage-cream-light px-4 py-2 rounded-full text-sm font-medium shadow-soft transition self-start md:self-auto"
-          >
-            <PlusCircle className="w-4 h-4" />
-            <span>Add a Title</span>
-          </button>
+        {/* Ambient reading lamp in corner */}
+        <div className="absolute -bottom-4 right-8 pointer-events-none opacity-20 hidden md:block">
+          <BookOpen className="w-36 h-36 text-amber-100" />
         </div>
       </div>
 

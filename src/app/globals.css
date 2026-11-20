@@ -16,6 +16,8 @@
   --accent: #B8C6B0;
   --accent-foreground: #2E2620;
   --border: #E0D7C4;
+  --gold: #E5B25D;
+  --gold-glow: rgba(245, 214, 130, 0.45);
 }
 
 body {
@@ -24,24 +26,205 @@ body {
   min-height: 100vh;
   font-family: var(--font-plus-jakarta), system-ui, -apple-system, sans-serif;
   background-image: 
-    radial-gradient(#d3c9b7 0.75px, transparent 0.75px),
-    radial-gradient(#e4dcce 0.75px, #F4EFE3 0.75px);
-  background-size: 30px 30px;
-  background-position: 0 0, 15px 15px;
+    radial-gradient(#d8ceba 0.75px, transparent 0.75px),
+    radial-gradient(#ece3d2 0.75px, #F4EFE3 0.75px);
+  background-size: 28px 28px;
+  background-position: 0 0, 14px 14px;
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
-/* Custom accessible focus indicator */
-:focus-visible {
-  outline: 2px solid #8A9F7B;
-  outline-offset: 2px;
+/* Atmospheric Lighting overlays */
+.atmosphere-day {
+  --sky-top: #DFECF4;
+  --sky-bottom: #F6EAD8;
+  --hill-back: #A4B89D;
+  --hill-front: #7D9775;
+  --ambient-light: rgba(255, 248, 225, 0.15);
+}
+
+.atmosphere-dusk {
+  --sky-top: #D8B7A4;
+  --sky-bottom: #F5DEC2;
+  --hill-back: #8E7A75;
+  --hill-front: #66554F;
+  --ambient-light: rgba(245, 178, 122, 0.22);
+}
+
+.atmosphere-night {
+  --sky-top: #1F2533;
+  --sky-bottom: #35384B;
+  --hill-back: #262B35;
+  --hill-front: #1E222A;
+  --ambient-light: rgba(79, 93, 143, 0.28);
+}
+
+/* Storybook paper texture cards */
+.storybook-card {
+  background: #FAF7F0;
+  border: 1.5px solid #DDD3BE;
+  box-shadow: 
+    0 4px 20px -2px rgba(115, 96, 74, 0.08),
+    0 1px 3px 0 rgba(115, 96, 74, 0.05),
+    inset 0 0 16px rgba(230, 220, 200, 0.4);
+  border-radius: 1.25rem;
+}
+
+.storybook-wood {
+  background: linear-gradient(180deg, #8E7760 0%, #76604B 100%);
+  border: 1.5px solid #5C4A3A;
+  box-shadow: 
+    0 6px 16px -2px rgba(60, 48, 38, 0.25),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.storybook-parchment {
+  background: #F8F3E6;
+  border: 1px dashed #D3C4A8;
+  box-shadow: inset 0 0 20px rgba(215, 195, 160, 0.25);
+}
+
+/* Window Glow */
+.window-glow {
+  background: radial-gradient(circle, #FFF4A3 0%, #F5CE62 70%, #D49B28 100%);
+  box-shadow: 0 0 25px 4px rgba(255, 220, 100, 0.6);
+  animation: pulse-glow 4s ease-in-out infinite alternate;
+}
+
+/* Chimney Smoke Animation */
+@keyframes smoke-float {
+  0% {
+    transform: translateY(0) scale(0.6) rotate(0deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-24px) scale(1.1) translateX(6px) rotate(10deg);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-50px) scale(1.6) translateX(14px) rotate(20deg);
+    opacity: 0;
+  }
+}
+
+.animate-smoke-1 {
+  animation: smoke-float 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-smoke-2 {
+  animation: smoke-float 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 1.2s;
+}
+
+.animate-smoke-3 {
+  animation: smoke-float 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 2.3s;
+}
+
+/* Gentle swaying for flowers & foliage */
+@keyframes sway {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(3.5deg);
+  }
+}
+
+@keyframes sway-reverse {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-3.5deg);
+  }
+}
+
+.animate-sway {
+  transform-origin: bottom center;
+  animation: sway 5s ease-in-out infinite;
+}
+
+.animate-sway-slow {
+  transform-origin: bottom center;
+  animation: sway-reverse 7s ease-in-out infinite;
+}
+
+/* Firefly glow & drift */
+@keyframes firefly {
+  0%, 100% {
+    transform: translateY(0) translateX(0) scale(0.9);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-16px) translateX(10px) scale(1.3);
+    opacity: 0.95;
+    box-shadow: 0 0 10px 3px rgba(255, 235, 120, 0.8);
+  }
+}
+
+.animate-firefly {
+  animation: firefly 4s ease-in-out infinite;
+}
+
+/* Sleeping Cat Breath */
+@keyframes cat-breath {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04, 0.96);
+  }
+}
+
+.animate-cat-breath {
+  animation: cat-breath 3.5s ease-in-out infinite;
+}
+
+/* Vinyl Spinning */
+@keyframes spin-vinyl {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-vinyl {
+  animation: spin-vinyl 4s linear infinite;
+}
+
+/* Subtle Golden Window Pulse */
+@keyframes pulse-glow {
+  0% {
+    filter: brightness(1) drop-shadow(0 0 10px rgba(255, 215, 100, 0.4));
+  }
+  100% {
+    filter: brightness(1.25) drop-shadow(0 0 20px rgba(255, 220, 110, 0.7));
+  }
+}
+
+/* Reduced Motion Mode Support */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.calm-mode * {
+  animation: none !important;
+  transition: none !important;
 }
 
 /* Cozy paper scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
 }
 
 ::-webkit-scrollbar-track {
@@ -56,15 +239,4 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #B8A892;
-}
-
-/* Gentle transitions */
-a, button {
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Elegant selection highlight */
-::selection {
-  background-color: #DCE5D2;
-  color: #2E2620;
 }
