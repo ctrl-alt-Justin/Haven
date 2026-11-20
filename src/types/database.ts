@@ -46,6 +46,16 @@ export interface LibraryCategory {
 }
 
 export type BookFormat = 'epub' | 'pdf' | 'cbz' | 'cbr' | 'link'
+export type ContentType =
+  | 'book'
+  | 'light_novel'
+  | 'manga'
+  | 'manhwa'
+  | 'manhua'
+  | 'comic'
+  | 'graphic_novel'
+  | 'webcomic'
+
 export type RightsStatus =
   | 'public_domain'
   | 'creative_commons'
@@ -58,6 +68,7 @@ export interface LibraryBook {
   title: string
   author: string
   description: string | null
+  content_type: ContentType
   format: BookFormat
   file_path: string | null
   file_size: number | null
@@ -66,9 +77,14 @@ export interface LibraryBook {
   category_id: string | null
   category?: LibraryCategory
   genres: string[]
+  language: string
+  publication_year: number | null
   rights_status: RightsStatus
+  license_name: string | null
+  license_url: string | null
   license_details: string | null
   attribution: string | null
+  permission_notes: string | null
   contributor_id: string
   contributor?: Profile
   recommendation_note: string | null
@@ -78,10 +94,15 @@ export interface LibraryBook {
   updated_at: string
 }
 
+export type BookshelfStatus = 'currently_reading' | 'want_to_read' | 'finished'
+
 export interface ReadingProgress {
   id: string
   user_id: string
   book_id: string
+  book?: LibraryBook
+  status: BookshelfStatus
+  is_favorite: boolean
   cfi: string | null
   page_number: number | null
   total_pages: number | null
@@ -157,8 +178,11 @@ export interface PrivateEntry {
 export interface UserPreferences {
   user_id: string
   font_size: 'small' | 'normal' | 'large' | 'extra-large'
-  font_family: 'serif' | 'sans'
-  reading_theme: 'parchment' | 'cream' | 'night'
+  font_family: 'cormorant' | 'georgia' | 'lora' | 'atkinson' | 'opendyslexic' | 'sans'
+  reading_theme: 'cream' | 'paper' | 'sepia' | 'night'
+  line_spacing?: 'tight' | 'normal' | 'relaxed'
+  text_align?: 'left' | 'justify'
+  reading_margins?: 'compact' | 'normal' | 'wide'
   ambient_sound_volume: number
   created_at: string
   updated_at: string
